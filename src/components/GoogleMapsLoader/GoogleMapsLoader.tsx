@@ -1,8 +1,14 @@
-import React from 'react'
+
+import React, { ReactNode } from 'react'
 import { Box, CircularProgress } from '@mui/material'
 import { useJsApiLoader } from '@react-google-maps/api'
 
-const GoogleMapsLoader = ({ children, GOOGLE_MAPS_KEY }) => {
+interface GoogleMapsLoaderProps {
+  children: ReactNode;
+  GOOGLE_MAPS_KEY: string;
+}
+
+const GoogleMapsLoader: React.FC<GoogleMapsLoaderProps> = ({ children, GOOGLE_MAPS_KEY }) => {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: GOOGLE_MAPS_KEY,
