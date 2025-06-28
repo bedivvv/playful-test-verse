@@ -32,29 +32,60 @@ export function Main() {
 }
 
 function MainWithConfig() {
-  // Now we can safely use ConfigurableValues inside the provider
-  const ConfigurableValues = require("./config/constants").default;
+  // Load configuration constants
+  let ConfigurableValues;
+  try {
+    ConfigurableValues = require("./config/constants").default;
+  } catch (error) {
+    console.error("Failed to load configuration constants:", error);
+    // Provide default values if config fails to load
+    ConfigurableValues = () => ({
+      SENTRY_DSN: '',
+      GOOGLE_MAPS_KEY: '',
+      SERVER_URL: 'http://localhost:4000',
+      WS_SERVER_URL: 'ws://localhost:4000',
+      VAPID_KEY: '',
+      FIREBASE_KEY: '',
+      AUTH_DOMAIN: '',
+      PROJECT_ID: '',
+      STORAGE_BUCKET: '',
+      MSG_SENDER_ID: '',
+      APP_ID: '',
+      MEASUREMENT_ID: ''
+    });
+  }
+
   const { SENTRY_DSN, GOOGLE_MAPS_KEY, SERVER_URL, WS_SERVER_URL } =
     ConfigurableValues();
   console.log("GOOGLE_MAPS_KEY", GOOGLE_MAPS_KEY);
 
   useEffect(() => {
-    Sentry.init({
-      dsn: SENTRY_DSN,
-      integrations: [Sentry.browserTracingIntegration()],
-      tracesSampleRate: 0.1,
-    });
+    if (SENTRY_DSN) {
+      Sentry.init({
+        dsn: SENTRY_DSN,
+        integrations: [Sentry.browserTracingIntegration()],
+        tracesSampleRate: 0.1,
+      });
+    }
   }, [SENTRY_DSN]);
 
   const cache = new InMemoryCache();
   const httpLink = createHttpLink({
     uri: `${SERVER_URL}/graphql`,
   });
-  const wsLink = new GraphQLWsLink(
-    createClient({
-      url: `${WS_SERVER_URL}/graphql`,
-    })
-  );
+
+  let wsLink;
+  try {
+    wsLink = new GraphQLWsLink(
+      createClient({
+        url: `${WS_SERVER_URL}/graphql`,
+      })
+    );
+  } catch (error) {
+    console.warn("WebSocket connection failed, using HTTP only:", error);
+    wsLink = httpLink;
+  }
+
   const request = async (operation: {
     setContext: (context: { headers: { authorization: string } }) => void;
   }) => {
@@ -62,7 +93,11 @@ function MainWithConfig() {
 
     let token = null;
     if (data) {
-      token = JSON.parse(data).token;
+      try {
+        token = JSON.parse(data).token;
+      } catch (error) {
+        console.warn("Failed to parse user data:", error);
+      }
     }
     operation.setContext({
       headers: {
@@ -100,7 +135,7 @@ function MainWithConfig() {
       definition.kind === "OperationDefinition" &&
       definition.operation === "subscription"
     );
-  }, wsLink);
+  }, wsLink === httpLink ? httpLink : wsLink);
 
   const client = new ApolloClient({
     link: concat(ApolloLink.from([terminatingLink, requestLink]), httpLink),
@@ -124,6 +159,9 @@ function MainWithConfig() {
   );
 }
 
+// Only create root if container exists and hasn't been used
 const container = document.getElementById("root");
-const root = createRoot(container!);
-root.render(<Main />);
+if (container && !container._reactRootContainer) {
+  const root = createRoot(container);
+  root.render(<Main />);
+}
