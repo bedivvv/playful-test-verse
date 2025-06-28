@@ -1,3 +1,4 @@
+
 /* eslint-disable react/display-name */
 import React, { useState } from 'react'
 import { useQuery, useMutation, gql } from '@apollo/client'
@@ -23,9 +24,7 @@ import {
   Grid
 } from '@mui/material'
 import { customStyles } from '../utils/tableCustomStyles'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
+import { MoreVertical, Edit, Trash2 } from 'lucide-react'
 import TableHeader from '../components/TableHeader'
 import Alert from '../components/Alert'
 import ConfigurableValues from '../config/constants'
@@ -101,7 +100,7 @@ const Category = props => {
             id="long-button"
             aria-haspopup="true"
             onClick={handleClick}>
-            <MoreVertIcon fontSize="small" />
+            <MoreVertical size={18} />
           </IconButton>
           <Paper>
             <Menu
@@ -127,7 +126,7 @@ const Category = props => {
                 }}
                 style={{ height: 25 }}>
                 <ListItemIcon>
-                  <EditIcon fontSize="small" style={{ color: 'green' }} />
+                  <Edit size={18} style={{ color: 'green' }} />
                 </ListItemIcon>
                 <Typography color="green">{t('Edit')}</Typography>
               </MenuItem>
@@ -148,7 +147,7 @@ const Category = props => {
                 }}
                 style={{ height: 25 }}>
                 <ListItemIcon>
-                  <DeleteIcon fontSize="small" style={{ color: 'red' }} />
+                  <Trash2 size={18} style={{ color: 'red' }} />
                 </ListItemIcon>
                 <Typography color="red">{t('Delete')}</Typography>
               </MenuItem>
