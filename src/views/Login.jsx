@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react'
 import { withTranslation } from 'react-i18next'
 import {
@@ -21,8 +20,7 @@ import { validateFunc } from '../constraints/constraints'
 import useStyles from '../components/Configuration/styles'
 import useGlobalStyles from '../utils/globalStyles'
 import InputAdornment from '@mui/material/InputAdornment'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import { Eye, EyeOff } from 'lucide-react'
 import EmailIcon from '@mui/icons-material/Email'
 import LockIcon from '@mui/icons-material/Lock'
 import RestaurantIcon from '@mui/icons-material/Restaurant'
@@ -373,8 +371,8 @@ const Login = props => {
                     checked={showPassword}
                     onChange={() => setShowPassword(!showPassword)}
                     color="primary"
-                    icon={<VisibilityOffIcon sx={{ color: '#a0aec0' }} />}
-                    checkedIcon={<VisibilityIcon sx={{ color: '#667eea' }} />}
+                    icon={<EyeOff size={20} color="#a0aec0" />}
+                    checkedIcon={<Eye size={20} color="#667eea" />}
                     sx={{
                       transition: 'all 0.2s ease',
                       '&:hover': {
