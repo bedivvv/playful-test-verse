@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import { Box } from '@mui/material'
 
@@ -13,14 +13,15 @@ function Auth() {
       document.body.classList.remove('bg-default')
     }
   }, [])
+  
   const getRoutes = (routes: any[]) => {
     return routes.map((prop, key) => {
       if (prop.layout === '/auth') {
         return (
           <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
             key={key}
+            path={prop.path}
+            element={<prop.component />}
           />
         )
       } else {
@@ -28,10 +29,11 @@ function Auth() {
       }
     })
   }
+  
   return (
     <Box>
       <Box>
-        <Switch>{getRoutes(routes)}</Switch>
+        <Routes>{getRoutes(routes)}</Routes>
       </Box>
     </Box>
   )

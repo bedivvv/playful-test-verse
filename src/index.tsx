@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import {
@@ -32,13 +31,14 @@ function Main() {
     WS_SERVER_URL,
   } = ConfigurableValues();
   console.log("GOOGLE_MAPS_KEY", GOOGLE_MAPS_KEY);
+  
   useEffect(() => {
     Sentry.init({
       dsn: SENTRY_DSN,
       integrations: [new Integrations.BrowserTracing()],
       tracesSampleRate: 0.1,
     });
-  }, []);
+  }, [SENTRY_DSN]);
 
   const cache = new InMemoryCache();
   const httpLink = createHttpLink({

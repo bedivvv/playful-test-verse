@@ -5,11 +5,11 @@ import GoogleMapsLoader from "./components/GoogleMapsLoader/GoogleMapsLoader";
 import { Box, CircularProgress } from "@mui/material";
 import AdminLayout from "./layouts/Admin.jsx";
 import RestaurantLayout from "./layouts/Restaurant.jsx";
-import AuthLayout from "./layouts/Auth.jsx";
+import AuthLayout from "./layouts/Auth";
 import SuperAdminLayout from "./layouts/SuperAdmin.jsx";
 import { PrivateRoute } from "./views/PrivateRoute";
 import { AdminPrivateRoute } from "./views/AdminPrivateRoute";
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 import * as Sentry from "@sentry/react";
 import { isFirebaseSupported, initialize } from "./firebase";
 import { uploadToken } from "./apollo";
@@ -40,6 +40,7 @@ const App = () => {
   const userType = localStorage.getItem("user-enatega")
     ? JSON.parse(localStorage.getItem("user-enatega")!).userType
     : null;
+
   useEffect(() => {
     if (user) {
       const initializeFirebase = async () => {
@@ -102,36 +103,50 @@ const App = () => {
       };
       initializeFirebase();
     }
-  }, [user]);
+  }, [user, client, VAPID_KEY, FIREBASE_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MSG_SENDER_ID, APP_ID, MEASUREMENT_ID]);
+
   const route = userType
     ? userType === "VENDOR"
       ? "/restaurant/list"
       : "/super_admin/vendors"
     : "/auth/login";
+
   return (
     <Sentry.ErrorBoundary>
       {GOOGLE_MAPS_KEY ? (
         <GoogleMapsLoader GOOGLE_MAPS_KEY={GOOGLE_MAPS_KEY}>
           <HashRouter basename="/">
-            <Switch>
-              <AdminPrivateRoute
-                path="/super_admin"
-                component={(props: any) => <SuperAdminLayout {...props} />}
-              />
-              <PrivateRoute
-                path="/restaurant"
-                component={(props: any) => <RestaurantLayout {...props} />}
-              />
-              <PrivateRoute
-                path="/admin"
-                component={(props: any) => <AdminLayout {...props} />}
+            <Routes>
+              <Route
+                path="/super_admin/*"
+                element={
+                  <AdminPrivateRoute>
+                    <SuperAdminLayout />
+                  </AdminPrivateRoute>
+                }
               />
               <Route
-                path="/auth"
-                component={(props: any) => <AuthLayout {...props} />}
+                path="/restaurant/*"
+                element={
+                  <PrivateRoute>
+                    <RestaurantLayout />
+                  </PrivateRoute>
+                }
               />
-              <Redirect from="/" to={route} />
-            </Switch>
+              <Route
+                path="/admin/*"
+                element={
+                  <PrivateRoute>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/auth/*"
+                element={<AuthLayout />}
+              />
+              <Route path="/" element={<Navigate to={route} replace />} />
+            </Routes>
           </HashRouter>
         </GoogleMapsLoader>
       ) : (
