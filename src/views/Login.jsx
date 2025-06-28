@@ -20,11 +20,7 @@ import { validateFunc } from '../constraints/constraints'
 import useStyles from '../components/Configuration/styles'
 import useGlobalStyles from '../utils/globalStyles'
 import InputAdornment from '@mui/material/InputAdornment'
-import { Eye, EyeOff } from 'lucide-react'
-import EmailIcon from '@mui/icons-material/Email'
-import LockIcon from '@mui/icons-material/Lock'
-import RestaurantIcon from '@mui/icons-material/Restaurant'
-import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining'
+import { Eye, EyeOff, Mail, Lock, UtensilsCrossed, Truck } from 'lucide-react'
 
 const LOGIN = gql`
   ${ownerLogin}
@@ -174,7 +170,7 @@ const Login = props => {
           opacity: 0.1
         }}
       >
-        <RestaurantIcon sx={{ fontSize: 60, color: 'white' }} />
+        <UtensilsCrossed size={60} color="white" />
       </Box>
       
       <Box
@@ -186,7 +182,7 @@ const Login = props => {
           opacity: 0.1
         }}
       >
-        <DeliveryDiningIcon sx={{ fontSize: 80, color: 'white' }} />
+        <Truck size={80} color="white" />
       </Box>
 
       <Box
@@ -198,7 +194,7 @@ const Login = props => {
           opacity: 0.1
         }}
       >
-        <RestaurantIcon sx={{ fontSize: 40, color: 'white' }} />
+        <UtensilsCrossed size={40} color="white" />
       </Box>
 
       {/* Main Login Container */}
@@ -238,7 +234,7 @@ const Login = props => {
               animation: 'pulse 2s ease-in-out infinite'
             }}
           >
-            <DeliveryDiningIcon sx={{ fontSize: 40, color: 'white' }} />
+            <Truck size={40} color="white" />
           </Box>
           
           <Typography
@@ -310,7 +306,7 @@ const Login = props => {
               disableUnderline
               startAdornment={
                 <InputAdornment position="start">
-                  <EmailIcon sx={{ color: '#a0aec0', mr: 1 }} />
+                  <Mail size={20} color="#a0aec0" style={{ marginRight: '8px' }} />
                 </InputAdornment>
               }
               sx={{
@@ -362,7 +358,7 @@ const Login = props => {
               disableUnderline
               startAdornment={
                 <InputAdornment position="start">
-                  <LockIcon sx={{ color: '#a0aec0', mr: 1 }} />
+                  <Lock size={20} color="#a0aec0" style={{ marginRight: '8px' }} />
                 </InputAdornment>
               }
               endAdornment={
