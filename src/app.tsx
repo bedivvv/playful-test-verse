@@ -54,32 +54,38 @@ const App = () => {
             MEASUREMENT_ID
           );
           Notification.requestPermission()
-            .then(() => {
-              getToken(messaging, {
-                vapidKey: VAPID_KEY,
-              })
-                .then((token) => {
-                  localStorage.setItem("messaging-token", token);
-                  client
-                    .mutate({
-                      mutation: UPLOAD_TOKEN,
-                      variables: {
-                        id: JSON.parse(user).userId,
-                        pushToken: token,
-                      },
-                    })
-                    .then(() => {
-                      console.log("upload token success");
-                    })
-                    .catch((error) => {
-                      console.log("upload token error", error);
-                    });
+            .then((permission) => {
+              if (permission === "granted") {
+                getToken(messaging, {
+                  vapidKey: VAPID_KEY,
                 })
-                .catch((err) => {
-                  console.log("getToken error", err);
-                });
+                  .then((token) => {
+                    localStorage.setItem("messaging-token", token);
+                    client
+                      .mutate({
+                        mutation: UPLOAD_TOKEN,
+                        variables: {
+                          id: JSON.parse(user).userId,
+                          pushToken: token,
+                        },
+                      })
+                      .then(() => {
+                        console.log("upload token success");
+                      })
+                      .catch((error) => {
+                        console.log("upload token error", error);
+                      });
+                  })
+                  .catch((err) => {
+                    console.log("getToken error", err);
+                  });
+              } else {
+                console.log("Notification permission denied or blocked");
+              }
             })
-            .catch(console.log);
+            .catch((error) => {
+              console.log("Permission request error", error);
+            });
 
           onMessage(messaging, function (payload) {
             console.log(payload);

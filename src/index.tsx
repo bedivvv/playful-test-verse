@@ -1,6 +1,5 @@
-
 import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import {
   ApolloProvider,
   ApolloClient,
@@ -21,6 +20,7 @@ import { ConfigurationProvider } from "./context/Configuration";
 import App from "./app";
 import { RestProvider } from "./context/Restaurant";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material";
+import { ThemeProvider as StylesThemeProvider } from "@mui/styles";
 import theme from "./utils/theme";
 
 export function Main() {
@@ -104,9 +104,11 @@ export function Main() {
       <ConfigurationProvider>
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
-            <RestProvider>
-              <App />
-            </RestProvider>
+            <StylesThemeProvider theme={theme}>
+              <RestProvider>
+                <App />
+              </RestProvider>
+            </StylesThemeProvider>
           </ThemeProvider>
         </StyledEngineProvider>
       </ConfigurationProvider>
@@ -114,4 +116,6 @@ export function Main() {
   );
 }
 
-// ReactDOM.render(<Main />, document.getElementById("root"));
+const container = document.getElementById("root");
+const root = createRoot(container!);
+root.render(<Main />);

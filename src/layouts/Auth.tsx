@@ -13,13 +13,7 @@ function Auth() {
     };
   }, []);
 
-  const getRoutes = (
-    routes: Array<{
-      layout: string;
-      path: string;
-      component: React.ComponentType;
-    }>
-  ) => {
+  const getRoutes = (routes: any[]) => {
     return routes.map((prop, key) => {
       if (prop.layout === "/auth") {
         return (
