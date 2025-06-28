@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import {
@@ -23,7 +22,7 @@ import { RestProvider } from "./context/Restaurant";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material";
 import theme from "./utils/theme";
 
-function Main() {
+export function Main() {
   const {
     SENTRY_DSN,
     GOOGLE_MAPS_KEY,
@@ -117,4 +116,4 @@ function Main() {
 }
 
 // eslint-disable-next-line react/no-deprecated
-ReactDOM.render(<Main />, document.getElementById("root"));
+// ReactDOM.render(<Main />, document.getElementById("root"));
