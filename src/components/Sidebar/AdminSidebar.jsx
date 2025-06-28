@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import {
   AppBar,
@@ -10,7 +11,7 @@ import {
   SvgIcon,
   useTheme,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Menu as MenuIcon } from "lucide-react";
 import routes from "../../routes";
 import useStyles from "./styles";
 import Logo from "../../assets/svg/logo.svg?react";
