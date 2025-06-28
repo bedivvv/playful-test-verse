@@ -16,7 +16,6 @@ const GoogleMapsLoader: React.FC<GoogleMapsLoaderProps> = ({ children, GOOGLE_MA
       'drawing',
       'places',
       'geometry',
-      'localContext',
       'visualization'
     ]
   })
