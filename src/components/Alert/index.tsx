@@ -1,6 +1,6 @@
 
 import React from 'react'
-import Alert from '@mui/lab/Alert'
+import { Alert } from '@mui/material'
 
 const styles = {
   alert: {

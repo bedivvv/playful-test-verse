@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import {
@@ -15,7 +16,6 @@ import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createClient } from "graphql-ws";
 import "firebase/messaging";
 import * as Sentry from "@sentry/react";
-import { Integrations } from "@sentry/tracing";
 import ConfigurableValues from "./config/constants";
 import { ConfigurationProvider } from "./context/Configuration";
 import App from "./app";
@@ -35,7 +35,9 @@ function Main() {
   useEffect(() => {
     Sentry.init({
       dsn: SENTRY_DSN,
-      integrations: [new Integrations.BrowserTracing()],
+      integrations: [
+        Sentry.browserTracingIntegration(),
+      ],
       tracesSampleRate: 0.1,
     });
   }, [SENTRY_DSN]);
@@ -83,9 +85,13 @@ function Main() {
         };
       })
   );
+  
   const terminatingLink = split(({ query }) => {
-    const { kind, operation } = getMainDefinition(query);
-    return kind === "OperationDefinition" && operation === "subscription";
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === "OperationDefinition" &&
+      definition.operation === "subscription"
+    );
   }, wsLink);
 
   const client = new ApolloClient({
