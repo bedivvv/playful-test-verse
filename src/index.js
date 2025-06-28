@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { createRoot } from "react-dom/client";
+
+import ReactDOM from "react-dom";
 import {
   ApolloProvider,
   ApolloClient,
@@ -15,26 +16,29 @@ import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createClient } from "graphql-ws";
 import "firebase/messaging";
 import * as Sentry from "@sentry/react";
+import { Integrations } from "@sentry/tracing";
 import ConfigurableValues from "./config/constants";
 import { ConfigurationProvider } from "./context/Configuration";
 import App from "./app";
 import { RestProvider } from "./context/Restaurant";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material";
-import { ThemeProvider as StylesThemeProvider } from "@mui/styles";
 import theme from "./utils/theme";
 
-export function Main() {
-  const { SENTRY_DSN, GOOGLE_MAPS_KEY, SERVER_URL, WS_SERVER_URL } =
-    ConfigurableValues();
+function Main() {
+  const {
+    SENTRY_DSN,
+    GOOGLE_MAPS_KEY,
+    SERVER_URL,
+    WS_SERVER_URL,
+  } = ConfigurableValues();
   console.log("GOOGLE_MAPS_KEY", GOOGLE_MAPS_KEY);
-
   useEffect(() => {
     Sentry.init({
       dsn: SENTRY_DSN,
-      integrations: [Sentry.browserTracingIntegration()],
+      integrations: [new Integrations.BrowserTracing()],
       tracesSampleRate: 0.1,
     });
-  }, [SENTRY_DSN]);
+  }, []);
 
   const cache = new InMemoryCache();
   const httpLink = createHttpLink({
@@ -45,9 +49,7 @@ export function Main() {
       url: `${WS_SERVER_URL}/graphql`,
     })
   );
-  const request = async (operation: {
-    setContext: (context: { headers: { authorization: string } }) => void;
-  }) => {
+  const request = async (operation) => {
     const data = localStorage.getItem("user-enatega");
 
     let token = null;
@@ -64,17 +66,15 @@ export function Main() {
   const requestLink = new ApolloLink(
     (operation, forward) =>
       new Observable((observer) => {
-        let handle: { unsubscribe: () => void } | null = null;
+        let handle;
         Promise.resolve(operation)
           .then((oper) => request(oper))
           .then(() => {
-            if (forward) {
-              handle = forward(operation).subscribe({
-                next: observer.next.bind(observer),
-                error: observer.error.bind(observer),
-                complete: observer.complete.bind(observer),
-              });
-            }
+            handle = forward(operation).subscribe({
+              next: observer.next.bind(observer),
+              error: observer.error.bind(observer),
+              complete: observer.complete.bind(observer),
+            });
           })
           .catch(observer.error.bind(observer));
 
@@ -83,13 +83,9 @@ export function Main() {
         };
       })
   );
-
   const terminatingLink = split(({ query }) => {
-    const definition = getMainDefinition(query);
-    return (
-      definition.kind === "OperationDefinition" &&
-      definition.operation === "subscription"
-    );
+    const { kind, operation } = getMainDefinition(query);
+    return kind === "OperationDefinition" && operation === "subscription";
   }, wsLink);
 
   const client = new ApolloClient({
@@ -102,20 +98,32 @@ export function Main() {
   return (
     <ApolloProvider client={client}>
       <ConfigurationProvider>
+        {/* <LoadScript
+          id="script-loader"
+          googleMapsApiKey={GOOGLE_MAPS_KEY}
+          libraries={[
+            'drawing',
+            'places',
+            'geometry',
+            'localContext',
+            'visualization'
+          ]}> */}
+
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
-            <StylesThemeProvider theme={theme}>
-              <RestProvider>
-                <App />
-              </RestProvider>
-            </StylesThemeProvider>
+            <RestProvider>
+              {/* <GoogleMapsLoader> */}
+              <App />
+              {/* </GoogleMapsLoader> */}
+            </RestProvider>
           </ThemeProvider>
         </StyledEngineProvider>
+
+        {/* </LoadScript> */}
       </ConfigurationProvider>
     </ApolloProvider>
   );
 }
 
-const container = document.getElementById("root");
-const root = createRoot(container!);
-root.render(<Main />);
+// eslint-disable-next-line react/no-deprecated
+ReactDOM.render(<Main />, document.getElementById("root"));

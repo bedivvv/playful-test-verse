@@ -24,7 +24,9 @@ import {
   useTheme,
 } from "@mui/material";
 import VendorIcon from "../assets/svg/svg/Vendors.svg?react";
-import { MoreVertical, Edit, Trash2 } from "lucide-react";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import TableHeader from "../components/TableHeader";
 import Alert from "../components/Alert";
 import ConfigurableValues from "../config/constants";
@@ -43,6 +45,8 @@ const Vendors = (props) => {
   const [vendors, setVendor] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  // const [anchorEl, setAnchorEl] = useState(null)
+  // const open = Boolean(anchorEl)
   const onChangeSearch = (e) => setSearchQuery(e.target.value);
   const golbalClasses = useGlobalStyles();
 
@@ -149,7 +153,7 @@ const Vendors = (props) => {
             aria-haspopup="true"
             onClick={handleClick}
           >
-            <MoreVertical size={16} />
+            <MoreVertIcon fontSize="small" />
           </IconButton>
           <Paper>
             <Menu
@@ -175,7 +179,7 @@ const Vendors = (props) => {
                 style={{ height: 25 }}
               >
                 <ListItemIcon>
-                  <Edit size={16} style={{ color: "green" }} />
+                  <EditIcon fontSize="small" style={{ color: "green" }} />
                 </ListItemIcon>
                 <Typography color="green">{t("Edit")}</Typography>
               </MenuItem>
@@ -193,7 +197,7 @@ const Vendors = (props) => {
                 style={{ height: 25 }}
               >
                 <ListItemIcon>
-                  <Trash2 size={16} style={{ color: "red" }} />
+                  <DeleteIcon fontSize="small" style={{ color: "red" }} />
                 </ListItemIcon>
                 <Typography color="red">{t("Delete")}</Typography>
               </MenuItem>
@@ -213,6 +217,7 @@ const Vendors = (props) => {
 
       <Container className={golbalClasses.flex}>
         <Grid container>
+          {/* <Grid item order={{ xs: 2, lg: 1 }}> */}
           <Grid item xs={12} lg={6}>
             <VendorComponent />
           </Grid>
