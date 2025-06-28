@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import {
@@ -15,7 +16,6 @@ import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createClient } from "graphql-ws";
 import "firebase/messaging";
 import * as Sentry from "@sentry/react";
-import ConfigurableValues from "./config/constants";
 import { ConfigurationProvider } from "./context/Configuration";
 import App from "./app";
 import { RestProvider } from "./context/Restaurant";
@@ -24,6 +24,16 @@ import { ThemeProvider as StylesThemeProvider } from "@mui/styles";
 import theme from "./utils/theme";
 
 export function Main() {
+  return (
+    <ConfigurationProvider>
+      <MainWithConfig />
+    </ConfigurationProvider>
+  );
+}
+
+function MainWithConfig() {
+  // Now we can safely use ConfigurableValues inside the provider
+  const ConfigurableValues = require("./config/constants").default;
   const { SENTRY_DSN, GOOGLE_MAPS_KEY, SERVER_URL, WS_SERVER_URL } =
     ConfigurableValues();
   console.log("GOOGLE_MAPS_KEY", GOOGLE_MAPS_KEY);
@@ -101,17 +111,15 @@ export function Main() {
 
   return (
     <ApolloProvider client={client}>
-      <ConfigurationProvider>
-        <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme}>
-            <StylesThemeProvider theme={theme}>
-              <RestProvider>
-                <App />
-              </RestProvider>
-            </StylesThemeProvider>
-          </ThemeProvider>
-        </StyledEngineProvider>
-      </ConfigurationProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <StylesThemeProvider theme={theme}>
+            <RestProvider>
+              <App />
+            </RestProvider>
+          </StylesThemeProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </ApolloProvider>
   );
 }
