@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
 
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import {
   ApolloProvider,
@@ -49,7 +49,7 @@ function Main() {
       url: `${WS_SERVER_URL}/graphql`,
     })
   );
-  const request = async (operation) => {
+  const request = async (operation: any) => {
     const data = localStorage.getItem("user-enatega");
 
     let token = null;
@@ -66,7 +66,7 @@ function Main() {
   const requestLink = new ApolloLink(
     (operation, forward) =>
       new Observable((observer) => {
-        let handle;
+        let handle: any;
         Promise.resolve(operation)
           .then((oper) => request(oper))
           .then(() => {
@@ -98,28 +98,13 @@ function Main() {
   return (
     <ApolloProvider client={client}>
       <ConfigurationProvider>
-        {/* <LoadScript
-          id="script-loader"
-          googleMapsApiKey={GOOGLE_MAPS_KEY}
-          libraries={[
-            'drawing',
-            'places',
-            'geometry',
-            'localContext',
-            'visualization'
-          ]}> */}
-
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
             <RestProvider>
-              {/* <GoogleMapsLoader> */}
               <App />
-              {/* </GoogleMapsLoader> */}
             </RestProvider>
           </ThemeProvider>
         </StyledEngineProvider>
-
-        {/* </LoadScript> */}
       </ConfigurationProvider>
     </ApolloProvider>
   );

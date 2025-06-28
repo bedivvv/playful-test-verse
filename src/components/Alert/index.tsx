@@ -1,18 +1,24 @@
+
 import React from 'react'
 import Alert from '@material-ui/lab/Alert'
 
 const styles = {
   alert: {
     left: '0',
-    pointerEvents: 'none',
-    position: 'fixed',
+    pointerEvents: 'none' as const,
+    position: 'fixed' as const,
     top: 0,
     width: '100%',
     zIndex: '1500'
   }
 }
 
-const AlertMessage = props => {
+interface AlertMessageProps {
+  severity: 'error' | 'warning' | 'info' | 'success';
+  message: string;
+}
+
+const AlertMessage: React.FC<AlertMessageProps> = props => {
   return (
     <Alert style={styles.alert} severity={props.severity}>
       {props.message}

@@ -1,6 +1,7 @@
+
 import React, { useEffect, useState } from "react";
 import { getToken, onMessage } from "firebase/messaging";
-import GoogleMapsLoader from "./components/GoogleMapsLoader/GoogleMapsLoader.js";
+import GoogleMapsLoader from "./components/GoogleMapsLoader/GoogleMapsLoader";
 import { Box, CircularProgress } from "@mui/material";
 import AdminLayout from "./layouts/Admin.jsx";
 import RestaurantLayout from "./layouts/Restaurant.jsx";
@@ -10,10 +11,10 @@ import { PrivateRoute } from "./views/PrivateRoute";
 import { AdminPrivateRoute } from "./views/AdminPrivateRoute";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import * as Sentry from "@sentry/react";
-import { isFirebaseSupported, initialize } from "./firebase.js";
+import { isFirebaseSupported, initialize } from "./firebase";
 import { uploadToken } from "./apollo";
 import { gql, useApolloClient } from "@apollo/client";
-import ConfigurableValues from "./config/constants.js";
+import ConfigurableValues from "./config/constants";
 import "./i18n";
 
 const UPLOAD_TOKEN = gql`
@@ -33,16 +34,11 @@ const App = () => {
     GOOGLE_MAPS_KEY,
   } = ConfigurableValues();
   console.log("GOOGLE_MAPS_KEY_App", GOOGLE_MAPS_KEY);
-  // const [mapsKey, setMapsKey] = useState(null)
-  // useEffect(() => {
-  //   if (GOOGLE_MAPS_KEY) {
-  //     setMapsKey(GOOGLE_MAPS_KEY)
-  //   }
-  // }, [GOOGLE_MAPS_KEY])
+  
   const client = useApolloClient();
   const [user] = useState(localStorage.getItem("user-enatega"));
   const userType = localStorage.getItem("user-enatega")
-    ? JSON.parse(localStorage.getItem("user-enatega")).userType
+    ? JSON.parse(localStorage.getItem("user-enatega")!).userType
     : null;
   useEffect(() => {
     if (user) {
@@ -120,19 +116,19 @@ const App = () => {
             <Switch>
               <AdminPrivateRoute
                 path="/super_admin"
-                component={(props) => <SuperAdminLayout {...props} />}
+                component={(props: any) => <SuperAdminLayout {...props} />}
               />
               <PrivateRoute
                 path="/restaurant"
-                component={(props) => <RestaurantLayout {...props} />}
+                component={(props: any) => <RestaurantLayout {...props} />}
               />
               <PrivateRoute
                 path="/admin"
-                component={(props) => <AdminLayout {...props} />}
+                component={(props: any) => <AdminLayout {...props} />}
               />
               <Route
                 path="/auth"
-                component={(props) => <AuthLayout {...props} />}
+                component={(props: any) => <AuthLayout {...props} />}
               />
               <Redirect from="/" to={route} />
             </Switch>

@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
 
@@ -12,7 +13,7 @@ function Auth() {
       document.body.classList.remove('bg-default')
     }
   }, [])
-  const getRoutes = routes => {
+  const getRoutes = (routes: any[]) => {
     return routes.map((prop, key) => {
       if (prop.layout === '/auth') {
         return (
