@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react'
 import { withTranslation } from 'react-i18next'
 import {
@@ -20,7 +21,7 @@ import { validateFunc } from '../constraints/constraints'
 import useStyles from '../components/Configuration/styles'
 import useGlobalStyles from '../utils/globalStyles'
 import InputAdornment from '@mui/material/InputAdornment'
-import { Eye, EyeOff, Mail, Lock, UtensilsCrossed, Truck } from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock, UtensilsCrossed, Truck, ChefHat } from 'lucide-react'
 
 const LOGIN = gql`
   ${ownerLogin}
@@ -141,7 +142,7 @@ const Login = props => {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -155,70 +156,89 @@ const Login = props => {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
-          animation: 'float 20s ease-in-out infinite'
+          background: 'radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%)',
+          animation: 'float 6s ease-in-out infinite'
         }
       }}
     >
-      {/* Floating Food Icons */}
+      {/* Floating Food Icons with enhanced animations */}
       <Box
         sx={{
           position: 'absolute',
-          top: '10%',
-          left: '10%',
-          animation: 'bounce 3s ease-in-out infinite',
-          opacity: 0.1
+          top: '15%',
+          left: '8%',
+          animation: 'bounce 4s ease-in-out infinite',
+          opacity: 0.1,
+          transform: 'rotate(-15deg)'
         }}
       >
-        <UtensilsCrossed size={60} color="white" />
+        <UtensilsCrossed size={80} color="white" />
       </Box>
       
       <Box
         sx={{
           position: 'absolute',
-          top: '20%',
-          right: '15%',
-          animation: 'bounce 2s ease-in-out infinite 0.5s',
-          opacity: 0.1
+          top: '25%',
+          right: '12%',
+          animation: 'bounce 3s ease-in-out infinite 1s',
+          opacity: 0.15,
+          transform: 'rotate(20deg)'
         }}
       >
-        <Truck size={80} color="white" />
+        <Truck size={100} color="white" />
       </Box>
 
       <Box
         sx={{
           position: 'absolute',
-          bottom: '15%',
-          left: '20%',
-          animation: 'bounce 2.5s ease-in-out infinite 1s',
-          opacity: 0.1
+          bottom: '20%',
+          left: '15%',
+          animation: 'bounce 3.5s ease-in-out infinite 0.5s',
+          opacity: 0.12,
+          transform: 'rotate(10deg)'
         }}
       >
-        <UtensilsCrossed size={40} color="white" />
+        <ChefHat size={60} color="white" />
       </Box>
 
-      {/* Main Login Container */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '10%',
+          right: '25%',
+          animation: 'float 5s ease-in-out infinite 2s',
+          opacity: 0.08
+        }}
+      >
+        <UtensilsCrossed size={45} color="white" />
+      </Box>
+
+      {/* Main Login Container with enhanced design */}
       <Box
         sx={{
           background: 'rgba(255, 255, 255, 0.95)',
-          backdropFilter: 'blur(20px)',
-          borderRadius: '24px',
-          padding: '48px',
-          maxWidth: '480px',
+          backdropFilter: 'blur(25px)',
+          borderRadius: '28px',
+          padding: '56px',
+          maxWidth: '520px',
           width: '100%',
-          boxShadow: '0 25px 50px rgba(0, 0, 0, 0.2)',
-          animation: 'slideInUp 0.8s ease-out',
-          border: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: '0 30px 80px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.5)',
+          animation: 'slideInUp 1s cubic-bezier(0.16, 1, 0.3, 1)',
+          border: '1px solid rgba(255, 255, 255, 0.3)',
           position: 'relative',
-          zIndex: 1
+          zIndex: 1,
+          '&:hover': {
+            transform: 'translateY(-5px)',
+            transition: 'transform 0.4s ease'
+          }
         }}
       >
-        {/* Header Section */}
+        {/* Header Section with enhanced styling */}
         <Box
           sx={{
             textAlign: 'center',
-            mb: 4,
-            animation: 'fadeInDown 1s ease-out 0.2s both'
+            mb: 5,
+            animation: 'fadeInDown 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both'
           }}
         >
           <Box
@@ -226,69 +246,87 @@ const Login = props => {
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              width: 80,
-              height: 80,
+              width: 90,
+              height: 90,
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-              mb: 3,
-              animation: 'pulse 2s ease-in-out infinite'
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
+              mb: 4,
+              animation: 'pulse 3s ease-in-out infinite',
+              boxShadow: '0 15px 35px rgba(102, 126, 234, 0.4)',
+              position: 'relative',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                inset: -3,
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #667eea, #764ba2, #f093fb)',
+                zIndex: -1,
+                opacity: 0.3,
+                animation: 'spin 8s linear infinite'
+              }
             }}
           >
-            <Truck size={40} color="white" />
+            <Truck size={45} color="white" />
           </Box>
           
           <Typography
-            variant="h4"
+            variant="h3"
             sx={{
-              fontWeight: 700,
-              color: '#2d3748',
-              mb: 1,
-              fontFamily: '"Inter", sans-serif'
+              fontWeight: 800,
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              color: 'transparent',
+              mb: 2,
+              fontFamily: '"Inter", sans-serif',
+              letterSpacing: '-0.02em'
             }}
           >
-            {t('Welcome Back')}
+            Welcome Back
           </Typography>
           
           <Typography
             sx={{
-              color: '#718096',
-              fontSize: '16px',
-              fontWeight: 400
+              color: '#6b7280',
+              fontSize: '18px',
+              fontWeight: 500,
+              lineHeight: 1.6
             }}
           >
-            {t('Sign in to your food delivery dashboard')}
+            Sign in to your food delivery dashboard
           </Typography>
         </Box>
 
-        {/* Form Section */}
+        {/* Form Section with enhanced interactions */}
         <Box
           component="form"
           ref={formRef}
           sx={{
             '& .MuiInputBase-root': {
-              transition: 'all 0.3s ease',
+              transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
               '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)'
+                transform: 'translateY(-3px)',
+                boxShadow: '0 15px 40px rgba(0, 0, 0, 0.12)'
               },
               '&.Mui-focused': {
-                transform: 'translateY(-2px)',
-                boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)'
+                transform: 'translateY(-3px)',
+                boxShadow: '0 20px 50px rgba(102, 126, 234, 0.25)'
               }
             }
           }}
         >
-          {/* Email Field */}
-          <Box sx={{ mb: 3, animation: 'fadeInLeft 0.8s ease-out 0.4s both' }}>
+          {/* Email Field with enhanced styling */}
+          <Box sx={{ mb: 4, animation: 'fadeInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both' }}>
             <Typography
               sx={{
-                fontWeight: 600,
-                color: '#2d3748',
-                mb: 1,
-                fontSize: '14px'
+                fontWeight: 700,
+                color: '#374151',
+                mb: 2,
+                fontSize: '15px',
+                letterSpacing: '0.01em'
               }}
             >
-              {t('Email Address')}
+              Email Address
             </Typography>
             <Input
               fullWidth
@@ -301,23 +339,24 @@ const Login = props => {
               onBlur={event => {
                 onBlur(event, 'email')
               }}
-              placeholder={t('Enter your email')}
+              placeholder="Enter your email"
               type="email"
               disableUnderline
               startAdornment={
                 <InputAdornment position="start">
-                  <Mail size={20} color="#a0aec0" style={{ marginRight: '8px' }} />
+                  <Mail size={22} color="#9ca3af" style={{ marginRight: '12px' }} />
                 </InputAdornment>
               }
               sx={{
-                backgroundColor: '#f7fafc',
-                padding: '16px 20px',
-                borderRadius: '12px',
-                border: stateData.emailError === false ? '2px solid #e53e3e' : 
-                       stateData.emailError === true ? '2px solid #38a169' : '2px solid transparent',
+                backgroundColor: '#f8fafc',
+                padding: '18px 24px',
+                borderRadius: '16px',
+                border: stateData.emailError === false ? '2px solid #ef4444' : 
+                       stateData.emailError === true ? '2px solid #10b981' : '2px solid transparent',
                 fontSize: '16px',
+                fontWeight: 500,
                 '&:hover': {
-                  backgroundColor: '#edf2f7'
+                  backgroundColor: '#f1f5f9'
                 },
                 '&.Mui-focused': {
                   backgroundColor: 'white',
@@ -327,23 +366,24 @@ const Login = props => {
             />
           </Box>
 
-          {/* Password Field */}
-          <Box sx={{ mb: 3, animation: 'fadeInLeft 0.8s ease-out 0.6s both' }}>
+          {/* Password Field with enhanced styling */}
+          <Box sx={{ mb: 4, animation: 'fadeInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both' }}>
             <Typography
               sx={{
-                fontWeight: 600,
-                color: '#2d3748',
-                mb: 1,
-                fontSize: '14px'
+                fontWeight: 700,
+                color: '#374151',
+                mb: 2,
+                fontSize: '15px',
+                letterSpacing: '0.01em'
               }}
             >
-              {t('Password')}
+              Password
             </Typography>
             <Input
               fullWidth
               id="input-password"
               name="input-password"
-              placeholder={t('Enter your password')}
+              placeholder="Enter your password"
               value={stateData.password}
               type={showPassword ? 'text' : 'password'}
               onChange={event => {
@@ -358,35 +398,41 @@ const Login = props => {
               disableUnderline
               startAdornment={
                 <InputAdornment position="start">
-                  <Lock size={20} color="#a0aec0" style={{ marginRight: '8px' }} />
+                  <Lock size={22} color="#9ca3af" style={{ marginRight: '12px' }} />
                 </InputAdornment>
               }
               endAdornment={
                 <InputAdornment position="end">
-                  <Checkbox
-                    checked={showPassword}
-                    onChange={() => setShowPassword(!showPassword)}
-                    color="primary"
-                    icon={<EyeOff size={20} color="#a0aec0" />}
-                    checkedIcon={<Eye size={20} color="#667eea" />}
+                  <Button
+                    onClick={() => setShowPassword(!showPassword)}
                     sx={{
+                      minWidth: 'auto',
+                      padding: '8px',
+                      borderRadius: '8px',
                       transition: 'all 0.2s ease',
                       '&:hover': {
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
                         transform: 'scale(1.1)'
                       }
                     }}
-                  />
+                  >
+                    {showPassword ? 
+                      <Eye size={20} color="#667eea" /> : 
+                      <EyeOff size={20} color="#9ca3af" />
+                    }
+                  </Button>
                 </InputAdornment>
               }
               sx={{
-                backgroundColor: '#f7fafc',
-                padding: '16px 20px',
-                borderRadius: '12px',
-                border: stateData.passwordError === false ? '2px solid #e53e3e' : 
-                       stateData.passwordError === true ? '2px solid #38a169' : '2px solid transparent',
+                backgroundColor: '#f8fafc',
+                padding: '18px 24px',
+                borderRadius: '16px',
+                border: stateData.passwordError === false ? '2px solid #ef4444' : 
+                       stateData.passwordError === true ? '2px solid #10b981' : '2px solid transparent',
                 fontSize: '16px',
+                fontWeight: 500,
                 '&:hover': {
-                  backgroundColor: '#edf2f7'
+                  backgroundColor: '#f1f5f9'
                 },
                 '&.Mui-focused': {
                   backgroundColor: 'white',
@@ -396,24 +442,35 @@ const Login = props => {
             />
           </Box>
 
-          {/* Remember Me & Forgot Password */}
+          {/* Remember Me & Forgot Password with enhanced styling */}
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              mb: 4,
-              animation: 'fadeInRight 0.8s ease-out 0.8s both'
+              mb: 5,
+              animation: 'fadeInRight 1s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both'
             }}
           >
             <FormGroup>
               <FormControlLabel
-                control={<Checkbox defaultChecked sx={{ color: '#667eea' }} />}
-                label={t('Remember Me')}
+                control={
+                  <Checkbox 
+                    defaultChecked 
+                    sx={{ 
+                      color: '#667eea',
+                      '&.Mui-checked': {
+                        color: '#667eea'
+                      }
+                    }} 
+                  />
+                }
+                label="Remember Me"
                 sx={{
                   '& .MuiFormControlLabel-label': {
-                    fontSize: '14px',
-                    color: '#4a5568'
+                    fontSize: '15px',
+                    color: '#4b5563',
+                    fontWeight: 500
                   }
                 }}
               />
@@ -424,20 +481,20 @@ const Login = props => {
               sx={{
                 textDecoration: 'none',
                 color: '#667eea',
-                fontSize: '14px',
+                fontSize: '15px',
                 fontWeight: 600,
-                transition: 'all 0.2s ease',
+                transition: 'all 0.3s ease',
                 '&:hover': {
                   color: '#5a67d8',
                   transform: 'translateY(-1px)'
                 }
               }}
             >
-              {t('Forgot Password?')}
+              Forgot Password?
             </Link>
           </Box>
 
-          {/* Login Button */}
+          {/* Login Button with enhanced design */}
           <Button
             fullWidth
             onClick={loginFunc}
@@ -445,56 +502,59 @@ const Login = props => {
             sx={{
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
               color: 'white',
-              padding: '16px',
-              borderRadius: '12px',
-              fontSize: '16px',
-              fontWeight: 600,
+              padding: '18px',
+              borderRadius: '16px',
+              fontSize: '17px',
+              fontWeight: 700,
               textTransform: 'none',
-              boxShadow: '0 8px 25px rgba(102, 126, 234, 0.3)',
-              transition: 'all 0.3s ease',
-              animation: 'fadeInUp 0.8s ease-out 1s both',
+              boxShadow: '0 15px 35px rgba(102, 126, 234, 0.4)',
+              transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+              animation: 'fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 1.1s both',
+              letterSpacing: '0.01em',
               '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: '0 12px 35px rgba(102, 126, 234, 0.4)',
+                transform: 'translateY(-3px)',
+                boxShadow: '0 25px 50px rgba(102, 126, 234, 0.5)',
                 background: 'linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%)'
               },
               '&:active': {
-                transform: 'translateY(0px)'
+                transform: 'translateY(-1px)'
               },
               '&:disabled': {
-                background: '#cbd5e0',
-                color: '#a0aec0'
+                background: '#e5e7eb',
+                color: '#9ca3af',
+                boxShadow: 'none'
               }
             }}
           >
             {isLoading ? (
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <CircularProgress size={20} sx={{ color: 'white' }} />
-                {t('Signing In...')}
+                <CircularProgress size={22} sx={{ color: 'white' }} />
+                Signing In...
               </Box>
             ) : (
-              t('Sign In')
+              'Sign In'
             )}
           </Button>
         </Box>
 
-        {/* Error Alert */}
+        {/* Error Alert with enhanced styling */}
         {stateData.error && (
           <Box
             sx={{
-              mt: 3,
-              animation: 'shake 0.5s ease-in-out'
+              mt: 4,
+              animation: 'shake 0.6s ease-in-out'
             }}
           >
             <Alert
               severity="error"
               sx={{
-                borderRadius: '12px',
-                backgroundColor: '#fed7d7',
-                color: '#9b2c2c',
-                border: '1px solid #feb2b2',
+                borderRadius: '16px',
+                backgroundColor: '#fef2f2',
+                color: '#991b1b',
+                border: '1px solid #fecaca',
+                fontWeight: 500,
                 '& .MuiAlert-icon': {
-                  color: '#e53e3e'
+                  color: '#ef4444'
                 }
               }}
             >
@@ -504,23 +564,23 @@ const Login = props => {
         )}
       </Box>
 
-      {/* Custom Styles */}
+      {/* Enhanced Custom Styles */}
       <style jsx global>{`
         @keyframes slideInUp {
           from {
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(60px) scale(0.95);
           }
           to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
           }
         }
 
         @keyframes fadeInDown {
           from {
             opacity: 0;
-            transform: translateY(-30px);
+            transform: translateY(-40px);
           }
           to {
             opacity: 1;
@@ -531,7 +591,7 @@ const Login = props => {
         @keyframes fadeInLeft {
           from {
             opacity: 0;
-            transform: translateX(-30px);
+            transform: translateX(-40px);
           }
           to {
             opacity: 1;
@@ -542,7 +602,7 @@ const Login = props => {
         @keyframes fadeInRight {
           from {
             opacity: 0;
-            transform: translateX(30px);
+            transform: translateX(40px);
           }
           to {
             opacity: 1;
@@ -553,7 +613,7 @@ const Login = props => {
         @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
           }
           to {
             opacity: 1;
@@ -566,37 +626,46 @@ const Login = props => {
             transform: translateY(0);
           }
           40% {
-            transform: translateY(-20px);
+            transform: translateY(-25px);
           }
           60% {
-            transform: translateY(-10px);
+            transform: translateY(-15px);
           }
         }
 
         @keyframes pulse {
           0% {
             transform: scale(1);
-            box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
           }
-          70% {
+          50% {
             transform: scale(1.05);
-            box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+            box-shadow: 0 20px 45px rgba(102, 126, 234, 0.6);
           }
           100% {
             transform: scale(1);
-            box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
           }
         }
 
         @keyframes float {
-          0% {
-            transform: translateY(0px);
+          0%, 100% {
+            transform: translateY(0px) rotate(0deg);
           }
-          50% {
-            transform: translateY(-20px);
+          33% {
+            transform: translateY(-20px) rotate(2deg);
           }
-          100% {
-            transform: translateY(0px);
+          66% {
+            transform: translateY(-10px) rotate(-2deg);
+          }
+        }
+
+        @keyframes spin {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
           }
         }
 
@@ -605,10 +674,10 @@ const Login = props => {
             transform: translateX(0);
           }
           10%, 30%, 50%, 70%, 90% {
-            transform: translateX(-5px);
+            transform: translateX(-8px);
           }
           20%, 40%, 60%, 80% {
-            transform: translateX(5px);
+            transform: translateX(8px);
           }
         }
       `}</style>
