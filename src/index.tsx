@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import {
@@ -63,15 +64,17 @@ export function Main() {
   const requestLink = new ApolloLink(
     (operation, forward) =>
       new Observable((observer) => {
-        let handle: ReturnType<typeof forward> | undefined;
+        let handle: { unsubscribe: () => void } | null = null;
         Promise.resolve(operation)
           .then((oper) => request(oper))
           .then(() => {
-            handle = forward(operation).subscribe({
-              next: observer.next.bind(observer),
-              error: observer.error.bind(observer),
-              complete: observer.complete.bind(observer),
-            });
+            if (forward) {
+              handle = forward(operation).subscribe({
+                next: observer.next.bind(observer),
+                error: observer.error.bind(observer),
+                complete: observer.complete.bind(observer),
+              });
+            }
           })
           .catch(observer.error.bind(observer));
 
