@@ -5,8 +5,6 @@ import { Main } from './index';
 
 const rootElement = document.getElementById('root') as HTMLElement;
 
-// Only create root if it doesn't exist
-if (!rootElement._reactRootContainer) {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(<Main />);
-}
+// Create root and render the app
+const root = ReactDOM.createRoot(rootElement);
+root.render(<Main />);

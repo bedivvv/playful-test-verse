@@ -158,10 +158,3 @@ function MainWithConfig() {
     </ApolloProvider>
   );
 }
-
-// Only create root if container exists and hasn't been used
-const container = document.getElementById("root");
-if (container && !container._reactRootContainer) {
-  const root = createRoot(container);
-  root.render(<Main />);
-}
