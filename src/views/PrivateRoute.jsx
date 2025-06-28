@@ -1,8 +1,20 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+import React from 'react'
+import { Redirect, Route } from 'react-router-dom'
 
-export const PrivateRoute = ({ children }) => {
-  const isAuthenticated = localStorage.getItem("user-enatega");
-
-  return isAuthenticated ? children : <Navigate to="/auth/login" replace />;
-};
+export const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      localStorage.getItem('user-enatega') ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: '/auth/login',
+            state: { from: props.location }
+          }}
+        />
+      )
+    }
+  />
+)

@@ -8,7 +8,7 @@ import Header from "../components/Headers/Header";
 import { restaurants, deleteRestaurant } from "../apollo";
 import DataTable from "react-data-table-component";
 import orderBy from "lodash/orderBy";
-import { TailSpin } from "react-loader-spinner";
+import Loader from "react-loader-spinner";
 import SearchBar from "../components/TableHeader/SearchBar";
 import { Container, Button, Box, useTheme, Snackbar } from "@mui/material";
 import { customStyles } from "../utils/tableCustomStyles";
@@ -121,7 +121,7 @@ const Restaurants = (props) => {
     return (
       <>
         {loading ? (
-          <TailSpin
+          <Loader
             type="ThreeDots"
             color={theme.palette.error.light}
             height={20}

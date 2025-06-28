@@ -16,7 +16,7 @@ import {
   CHANGE_RESTAURANT,
   SEARCH_RESTAURANTS,
 } from "../../apollo";
-import {TailSpin} from "react-loader-spinner";
+import Loader from "react-loader-spinner";
 import {
   Box,
   Grid,
@@ -662,7 +662,7 @@ function Order(props) {
           </div>
 
           {(loading || changingRestaurant) && (
-            <TailSpin
+            <Loader
               className="text-center"
               type="TailSpin"
               color="#ff5733"

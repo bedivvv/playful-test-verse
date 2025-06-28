@@ -24,7 +24,8 @@ import {
 import { Container } from '@mui/system'
 import CustomLoader from '../components/Loader/CustomLoader'
 import InputAdornment from '@mui/material/InputAdornment'
-import { Eye, EyeOff } from 'lucide-react'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { SHOP_TYPE } from '../utils/enums'
 import Dropdown from '../components/Dropdown'
 
@@ -373,8 +374,8 @@ const VendorProfile = () => {
                               checked={showPassword}
                               onChange={() => setShowPassword(!showPassword)}
                               color="primary"
-                              icon={<EyeOff size={18} />}
-                              checkedIcon={<Eye size={18} />}
+                              icon={<VisibilityOffIcon />}
+                              checkedIcon={<VisibilityIcon />}
                             />
                           </InputAdornment>
                         }

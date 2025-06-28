@@ -1,4 +1,3 @@
-
 /*eslint-disable*/
 import React from "react";
 import { withTranslation } from "react-i18next";
@@ -15,7 +14,7 @@ import {
   SvgIcon,
   useTheme,
 } from "@mui/material";
-import { Menu as MenuIcon } from "lucide-react";
+import MenuIcon from "@mui/icons-material/Menu";
 import routes from "../../routes";
 import useStyles from "./styles";
 import Logo from "../../assets/svg/logo.svg?react";
