@@ -23,20 +23,14 @@ import { ThemeProvider, StyledEngineProvider } from "@mui/material";
 import theme from "./utils/theme";
 
 export function Main() {
-  const {
-    SENTRY_DSN,
-    GOOGLE_MAPS_KEY,
-    SERVER_URL,
-    WS_SERVER_URL,
-  } = ConfigurableValues();
+  const { SENTRY_DSN, GOOGLE_MAPS_KEY, SERVER_URL, WS_SERVER_URL } =
+    ConfigurableValues();
   console.log("GOOGLE_MAPS_KEY", GOOGLE_MAPS_KEY);
-  
+
   useEffect(() => {
     Sentry.init({
       dsn: SENTRY_DSN,
-      integrations: [
-        Sentry.browserTracingIntegration(),
-      ],
+      integrations: [Sentry.browserTracingIntegration()],
       tracesSampleRate: 0.1,
     });
   }, [SENTRY_DSN]);
@@ -50,7 +44,9 @@ export function Main() {
       url: `${WS_SERVER_URL}/graphql`,
     })
   );
-  const request = async (operation: any) => {
+  const request = async (operation: {
+    setContext: (context: { headers: { authorization: string } }) => void;
+  }) => {
     const data = localStorage.getItem("user-enatega");
 
     let token = null;
@@ -67,7 +63,7 @@ export function Main() {
   const requestLink = new ApolloLink(
     (operation, forward) =>
       new Observable((observer) => {
-        let handle: any;
+        let handle: ReturnType<typeof forward> | undefined;
         Promise.resolve(operation)
           .then((oper) => request(oper))
           .then(() => {
@@ -84,7 +80,7 @@ export function Main() {
         };
       })
   );
-  
+
   const terminatingLink = split(({ query }) => {
     const definition = getMainDefinition(query);
     return (
@@ -115,5 +111,4 @@ export function Main() {
   );
 }
 
-// eslint-disable-next-line react/no-deprecated
 // ReactDOM.render(<Main />, document.getElementById("root"));

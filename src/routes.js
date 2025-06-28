@@ -57,7 +57,7 @@ import Cuisines from "./views/Cuisines";
 import Banners from "./views/Banners";
 import AllOrders from "./views/AllOrders";
 
-var routes = [
+const routes = [
   {
     path: "/dashboard",
     name: "Home",

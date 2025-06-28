@@ -1,29 +1,21 @@
-import React from 'react'
-import { Redirect, Route } from 'react-router-dom'
-export const AdminPrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      localStorage.getItem('user-enatega') ? (
-        JSON.parse(localStorage.getItem('user-enatega')).userType ===
-        'ADMIN' ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/',
-              state: { from: props.location }
-            }}
-          />
-        )
-      ) : (
-        <Redirect
-          to={{
-            pathname: '/auth/login',
-            state: { from: props.location }
-          }}
-        />
-      )
+import React from "react";
+import { Navigate } from "react-router-dom";
+
+export const AdminPrivateRoute = ({ children }) => {
+  const userString = localStorage.getItem("user-enatega");
+
+  if (!userString) {
+    return <Navigate to="/auth/login" replace />;
+  }
+
+  try {
+    const user = JSON.parse(userString);
+    if (user.userType === "ADMIN") {
+      return children;
+    } else {
+      return <Navigate to="/" replace />;
     }
-  />
-)
+  } catch (error) {
+    return <Navigate to="/auth/login" replace />;
+  }
+};

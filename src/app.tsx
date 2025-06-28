@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { getToken, onMessage } from "firebase/messaging";
 import GoogleMapsLoader from "./components/GoogleMapsLoader/GoogleMapsLoader";
@@ -34,7 +33,7 @@ const App = () => {
     GOOGLE_MAPS_KEY,
   } = ConfigurableValues();
   console.log("GOOGLE_MAPS_KEY_App", GOOGLE_MAPS_KEY);
-  
+
   const client = useApolloClient();
   const [user] = useState(localStorage.getItem("user-enatega"));
   const userType = localStorage.getItem("user-enatega")
@@ -86,9 +85,8 @@ const App = () => {
             console.log(payload);
             // Customize notification here
             // const { title, body } = payload.notification
-            // eslint-disable-next-line no-restricted-globals
-            var notificationTitle = "New Order on Enatega Multivendor";
-            var notificationOptions = {
+            const notificationTitle = "New Order on Enatega Multivendor";
+            const notificationOptions = {
               body: payload.data.orderid,
               icon: "https://multivendor-admin.ninjascode.com/favicon.png",
             };
@@ -103,7 +101,18 @@ const App = () => {
       };
       initializeFirebase();
     }
-  }, [user, client, VAPID_KEY, FIREBASE_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MSG_SENDER_ID, APP_ID, MEASUREMENT_ID]);
+  }, [
+    user,
+    client,
+    VAPID_KEY,
+    FIREBASE_KEY,
+    AUTH_DOMAIN,
+    PROJECT_ID,
+    STORAGE_BUCKET,
+    MSG_SENDER_ID,
+    APP_ID,
+    MEASUREMENT_ID,
+  ]);
 
   const route = userType
     ? userType === "VENDOR"
@@ -141,10 +150,7 @@ const App = () => {
                   </PrivateRoute>
                 }
               />
-              <Route
-                path="/auth/*"
-                element={<AuthLayout />}
-              />
+              <Route path="/auth/*" element={<AuthLayout />} />
               <Route path="/" element={<Navigate to={route} replace />} />
             </Routes>
           </HashRouter>
@@ -164,4 +170,6 @@ const App = () => {
     </Sentry.ErrorBoundary>
   );
 };
-export default Sentry.withProfiler(App);
+const AppWithProfiler = Sentry.withProfiler(App);
+AppWithProfiler.displayName = "AppWithProfiler";
+export default AppWithProfiler;
