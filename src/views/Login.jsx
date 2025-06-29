@@ -19,7 +19,7 @@ import {
   Lock as LockIcon,
   Visibility,
   VisibilityOff,
-  RestaurantMenuIcon
+  RestaurantMenu
 } from '@mui/icons-material';
 import { styled, keyframes } from '@mui/material/styles';
 import { ownerLogin } from '../apollo';
@@ -272,7 +272,7 @@ function Login({ t, history }) {
           <LoginCard elevation={0}>
             <LogoContainer>
               <LogoIcon>
-                <RestaurantMenuIcon sx={{ fontSize: 40, color: 'white' }} />
+                <RestaurantMenu sx={{ fontSize: 40, color: 'white' }} />
               </LogoIcon>
               <WelcomeText>
                 Welcome Back
