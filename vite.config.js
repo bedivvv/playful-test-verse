@@ -51,10 +51,9 @@ export default defineConfig({
     },
   },
 
-  // Server configuration - Use port 8080 as required
+  // Server configuration
   server: {
     port: 8080,
-    open: true,
     host: true,
     cors: true,
   },
