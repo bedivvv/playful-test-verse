@@ -1,6 +1,6 @@
 
 import React from "react";
-import { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom";
 import {
   ApolloProvider,
   ApolloClient,
@@ -111,7 +111,6 @@ function Main() {
   );
 }
 
-// React 18 root API
+// React 17 render API
 const container = document.getElementById("root");
-const root = createRoot(container);
-root.render(<Main />);
+ReactDOM.render(<Main />, container);
