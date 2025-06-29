@@ -1,3 +1,4 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import legacy from "@vitejs/plugin-legacy";
@@ -50,9 +51,9 @@ export default defineConfig({
     },
   },
 
-  // Server configuration
+  // Server configuration - Updated to use port 8080
   server: {
-    port: 3000,
+    port: 8080,
     open: true,
     host: true,
     cors: true,
@@ -60,7 +61,7 @@ export default defineConfig({
 
   // Build configuration
   build: {
-    outDir: "build",
+    outDir: "dist",
     sourcemap: true,
     // Increase chunk size warning limit
     chunkSizeWarningLimit: 1000,
