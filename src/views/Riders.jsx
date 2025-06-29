@@ -31,7 +31,7 @@ import { customStyles } from "../utils/tableCustomStyles";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import RiderIcon from "../assets/svg/svg/Rider.svg?react";
+import { ReactComponent as RiderIcon } from "../assets/svg/svg/Rider.svg";
 import TableHeader from "../components/TableHeader";
 import Alert from "../components/Alert";
 import ConfigurableValues from "../config/constants";

@@ -23,7 +23,7 @@ import {
   Paper,
   useTheme,
 } from "@mui/material";
-import VendorIcon from "../assets/svg/svg/Vendors.svg?react";
+import { ReactComponent as VendorIcon } from "../assets/svg/svg/Vendors.svg";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";

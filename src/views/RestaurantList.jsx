@@ -13,7 +13,7 @@ import SearchBar from "../components/TableHeader/SearchBar";
 import { Container, Button, Box, useTheme, Snackbar } from "@mui/material";
 import { customStyles } from "../utils/tableCustomStyles";
 import useGlobalStyles from "../utils/globalStyles";
-import RestIcon from "../assets/svg/svg/Restaurant.svg?react";
+import { ReactComponent as RestIcon } from "../assets/svg/svg/Restaurant.svg";
 import TableHeader from "../components/TableHeader";
 
 const GET_RESTAURANTS = gql`

@@ -1,7 +1,7 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import { Grid, useTheme } from "@mui/material";
-import ConfigIcon from "../assets/svg/svg/Configuration.svg?react";
+import { ReactComponent as ConfigIcon } from "../assets/svg/svg/Configuration.svg";
 import { Box } from "@mui/material";
 
 const Configuration1 = (props) => {

@@ -8,7 +8,7 @@ import { Box, Container, MenuItem, Select } from "@mui/material";
 import { customStyles } from "../utils/tableCustomStyles";
 import useGlobalStyles from "../utils/globalStyles";
 import SearchBar from "../components/TableHeader/SearchBar";
-import WithdrawIcon from "../assets/svg/svg/Request.svg?react";
+import { ReactComponent as WithdrawIcon } from "../assets/svg/svg/Request.svg";
 import TableHeader from "../components/TableHeader";
 import { withTranslation, useTranslation } from "react-i18next";
 

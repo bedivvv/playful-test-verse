@@ -17,7 +17,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import routes from "../../routes";
 import useStyles from "./styles";
-import Logo from "../../assets/svg/logo.svg?react";
+import { ReactComponent as Logo } from "../../assets/svg/logo.svg";
 import { useLocation } from "react-router-dom";
 
 const drawerWidth = 240;

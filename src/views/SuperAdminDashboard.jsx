@@ -13,7 +13,7 @@ import RiderStat from "../assets/img/RiderStat.png";
 import RestStat from "../assets/img/RestStat.png";
 import VendorStat from "../assets/img/VendorStat.png";
 import UserStat from "../assets/img/UserStat.png";
-import DashboardIcon from "../assets/svg/svg/dashboard.svg?react";
+import { ReactComponent as DashboardIcon } from "../assets/svg/svg/dashboard.svg";
 import { Line } from "react-chartjs-2";
 import { getUsers, getRiders, restaurants, getVendors } from "../apollo";
 import { gql, useQuery } from "@apollo/client";

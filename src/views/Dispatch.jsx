@@ -17,7 +17,7 @@ import SearchBar from "../components/TableHeader/SearchBar";
 import useGlobalStyles from "../utils/globalStyles";
 import { customStyles } from "../utils/tableCustomStyles";
 import { Container, MenuItem, Select, Box, useTheme } from "@mui/material";
-import DispatchIcon from "../assets/svg/svg/Dispatch.svg?react";
+import { ReactComponent as DispatchIcon } from "../assets/svg/svg/Dispatch.svg";
 import TableHeader from "../components/TableHeader";
 import toast, { Toaster } from "react-hot-toast";
 

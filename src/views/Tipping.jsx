@@ -6,7 +6,7 @@ import TippingComponent from "../components/Tipping/Tipping";
 // core components
 import Header from "../components/Headers/Header";
 import useGlobalStyles from "../utils/globalStyles";
-import TippingIcon from "../assets/svg/svg/Tipping.svg?react";
+import { ReactComponent as TippingIcon } from "../assets/svg/svg/Tipping.svg";
 
 function Tipping() {
   const globalClasses = useGlobalStyles();

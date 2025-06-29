@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import useStyles from "../components/Tipping/styles";
 import useGlobalStyles from "../utils/globalStyles";
-import NotificationIcon from "../assets/svg/svg/Notification.svg?react";
+import { ReactComponent as NotificationIcon } from "../assets/svg/svg/Notification.svg";
 
 const NOTIFICATION_USER = gql`
   ${sendNotificationUser}

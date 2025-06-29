@@ -29,7 +29,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TableHeader from "../components/TableHeader";
 import SearchBar from "../components/TableHeader/SearchBar";
-import SectionIcon from "../assets/svg/svg/RestaurantSection.svg?react";
+import { ReactComponent as SectionIcon } from "../assets/svg/svg/RestaurantSection.svg";
 import Alert from "../components/Alert";
 import ConfigurableValues from "../config/constants";
 

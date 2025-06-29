@@ -25,7 +25,7 @@ import {
   Typography,
   ListItemIcon,
 } from "@mui/material";
-import CouponsIcon from "../assets/svg/svg/Coupons.svg?react";
+import { ReactComponent as CouponsIcon } from "../assets/svg/svg/Coupons.svg";
 import TableHeader from "../components/TableHeader";
 
 const GET_COUPONS = gql`

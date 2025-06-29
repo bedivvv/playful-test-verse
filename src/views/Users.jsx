@@ -10,7 +10,7 @@ import SearchBar from "../components/TableHeader/SearchBar";
 import { customStyles } from "../utils/tableCustomStyles";
 import useGlobalStyles from "../utils/globalStyles";
 import { Box, Container } from "@mui/material";
-import UserIcon from "../assets/svg/svg/User.svg?react";
+import { ReactComponent as UserIcon } from "../assets/svg/svg/User.svg";
 import TableHeader from "../components/TableHeader";
 
 const GET_USERS = gql`

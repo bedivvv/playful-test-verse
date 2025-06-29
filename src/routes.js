@@ -3,8 +3,8 @@ import Category from "./views/Category";
 import Food from "./views/Food";
 import Profile from "./views/VendorProfile";
 import Orders from "./views/Orders";
-import Configuration from "./views/Configuration"; //uncomment this for paid version
-import DemoConfiguration from "./views/Configuration1"; //comment this for paid version
+import Configuration from "./views/Configuration"; // uncomment this for paid version
+import DemoConfiguration from "./views/Configuration1"; // comment this for paid version
 import Users from "./views/Users";
 import Vendors from "./views/Vendors";
 import RestaurantList from "./views/RestaurantList";
@@ -27,31 +27,34 @@ import Commission from "./views/Commission";
 import DeliveryBoundsAndLocation from "./views/DeliveryBoundsAndLocation";
 import DispatchRestaurant from "./views/DispatchRestaurant";
 import WithdrawRequest from "./views/WithdrawRequest";
-import VendorIcon from "./assets/svg/vendor.svg?react";
-import RestaurantIcon from "./assets/svg/restaurant.svg?react";
-import CommissionsIcon from "./assets/svg/commission.svg?react";
-import ConfigurationIcon from "./assets/svg/configuration.svg?react";
-import CouponsIcon from "./assets/svg/coupons.svg?react";
-import DeliveryIcon from "./assets/svg/delivery.svg?react";
-import NotificationsIcon from "./assets/svg/notifications.svg?react";
-import RequestIcon from "./assets/svg/request.svg?react";
-import RiderIcon from "./assets/svg/riders.svg?react";
-import TippingsIcon from "./assets/svg/tipping.svg?react";
-import UserIcon from "./assets/svg/user.svg?react";
-import ZonesIcon from "./assets/svg/zones.svg?react";
-import HomeIcon from "./assets/svg/home.svg?react";
-import AddonsIcon from "./assets/svg/addons.svg?react";
-import BackIcon from "./assets/svg/back.svg?react";
-import CategoryIcon from "./assets/svg/category.svg?react";
-import DashboardIcon from "./assets/svg/dashboard.svg?react";
-import FoodIcon from "./assets/svg/food.svg?react";
-import LocationIcon from "./assets/svg/location.svg?react";
-import OptionIcon from "./assets/svg/option.svg?react";
-import OrderIcon from "./assets/svg/order.svg?react";
-import PaymentIcon from "./assets/svg/payment.svg?react";
-import RatingIcon from "./assets/svg/rating.svg?react";
-import TimingIcon from "./assets/svg/timings.svg?react";
-import RestaurantSectionIcon from "./assets/svg/restSection.svg?react";
+
+// SVG Icons as React components
+import { ReactComponent as VendorIcon } from "./assets/svg/vendor.svg";
+import { ReactComponent as RestaurantIcon } from "./assets/svg/restaurant.svg";
+import { ReactComponent as CommissionsIcon } from "./assets/svg/commission.svg";
+import { ReactComponent as ConfigurationIcon } from "./assets/svg/configuration.svg";
+import { ReactComponent as CouponsIcon } from "./assets/svg/coupons.svg";
+import { ReactComponent as DeliveryIcon } from "./assets/svg/delivery.svg";
+import { ReactComponent as NotificationsIcon } from "./assets/svg/notifications.svg";
+import { ReactComponent as RequestIcon } from "./assets/svg/request.svg";
+import { ReactComponent as RiderIcon } from "./assets/svg/riders.svg";
+import { ReactComponent as TippingsIcon } from "./assets/svg/tipping.svg";
+import { ReactComponent as UserIcon } from "./assets/svg/user.svg";
+import { ReactComponent as ZonesIcon } from "./assets/svg/zones.svg";
+import { ReactComponent as HomeIcon } from "./assets/svg/home.svg";
+import { ReactComponent as AddonsIcon } from "./assets/svg/addons.svg";
+import { ReactComponent as BackIcon } from "./assets/svg/back.svg";
+import { ReactComponent as CategoryIcon } from "./assets/svg/category.svg";
+import { ReactComponent as DashboardIcon } from "./assets/svg/dashboard.svg";
+import { ReactComponent as FoodIcon } from "./assets/svg/food.svg";
+import { ReactComponent as LocationIcon } from "./assets/svg/location.svg";
+import { ReactComponent as OptionIcon } from "./assets/svg/option.svg";
+import { ReactComponent as OrderIcon } from "./assets/svg/order.svg";
+import { ReactComponent as PaymentIcon } from "./assets/svg/payment.svg";
+import { ReactComponent as RatingIcon } from "./assets/svg/rating.svg";
+import { ReactComponent as TimingIcon } from "./assets/svg/timings.svg";
+import { ReactComponent as RestaurantSectionIcon } from "./assets/svg/restSection.svg";
+
 import SuperAdminDashboard from "./views/SuperAdminDashboard";
 import Cuisines from "./views/Cuisines";
 import Banners from "./views/Banners";

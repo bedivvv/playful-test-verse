@@ -10,7 +10,7 @@ import PaypalConfiguration from "../components/Configuration/Paypal/Paypal";
 import StripeConfiguration from "../components/Configuration/Stripe/Stripe";
 import CurrencyConfiguration from "../components/Configuration/Currency/Currency";
 import { Grid } from "@mui/material";
-import ConfigIcon from "../assets/svg/svg/Configuration.svg?react";
+import { ReactComponent as ConfigIcon } from "../assets/svg/svg/Configuration.svg";
 import TwilioConfiguration from "../components/Configuration/Twilio/Twilio";
 import VerificationConfiguration from "../components/Configuration/Verification/Verification";
 import SendGridConfiguration from "../components/Configuration/SendGrid/SendGrid";

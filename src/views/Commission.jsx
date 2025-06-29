@@ -7,7 +7,7 @@ import useGlobalStyles from "../utils/globalStyles";
 import { Container, Box, Typography, Grid, Input, Button } from "@mui/material";
 import useStyles from "../components/Rider/styles";
 import toast, { Toaster } from "react-hot-toast";
-import CommissionIcon from "../assets/svg/svg/CommisionRate.svg?react";
+import { ReactComponent as CommissionIcon } from "../assets/svg/svg/CommisionRate.svg";
 import { useTranslation, withTranslation } from "react-i18next";
 
 const GET_RESTAURANTS = gql`
