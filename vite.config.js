@@ -4,9 +4,10 @@ import react from "@vitejs/plugin-react";
 import legacy from "@vitejs/plugin-legacy";
 import svgr from "vite-plugin-svgr";
 import { resolve } from "path";
+import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     react({
       // Enable React Fast Refresh
@@ -25,7 +26,10 @@ export default defineConfig({
         icon: true,
       },
     }),
-  ],
+
+    // Component tagger for Lovable (development only)
+    mode === 'development' && componentTagger(),
+  ].filter(Boolean),
 
   // ESBuild configuration to handle JSX in .js files
   esbuild: {
@@ -53,8 +57,8 @@ export default defineConfig({
 
   // Server configuration
   server: {
+    host: "::",
     port: 8080,
-    host: true,
     cors: true,
   },
 
@@ -113,4 +117,4 @@ export default defineConfig({
     global: "globalThis",
     "process.env": {},
   },
-});
+}));
