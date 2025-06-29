@@ -22,7 +22,7 @@ FROM nginx:alpine
 # Remove default Nginx website
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copy built app to Nginx serving directory (from 'dist' instead of 'build')
+# Copy built app to Nginx serving directory (from 'dist' - Vite's default)
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Copy custom nginx configuration if needed

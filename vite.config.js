@@ -51,9 +51,9 @@ export default defineConfig({
     },
   },
 
-  // Server configuration - Use default port 3000 to match common React scripts
+  // Server configuration - Use port 8080 as required
   server: {
-    port: 3000,
+    port: 8080,
     open: true,
     host: true,
     cors: true,
@@ -61,7 +61,7 @@ export default defineConfig({
 
   // Build configuration
   build: {
-    outDir: "build",
+    outDir: "dist",
     sourcemap: true,
     // Increase chunk size warning limit
     chunkSizeWarningLimit: 1000,
