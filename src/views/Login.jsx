@@ -12,17 +12,14 @@ import {
   IconButton,
   Alert,
   Fade,
-  Slide,
-  Zoom
+  Container
 } from '@mui/material';
 import { 
   Email as EmailIcon,
   Lock as LockIcon,
   Visibility,
   VisibilityOff,
-  Restaurant as RestaurantIcon,
-  LocalPizza as PizzaIcon,
-  Fastfood as FastfoodIcon
+  RestaurantMenu
 } from '@mui/icons-material';
 import { styled, keyframes } from '@mui/material/styles';
 import { ownerLogin } from '../apollo';
@@ -31,41 +28,45 @@ const LOGIN = gql`
   ${ownerLogin}
 `;
 
-// Floating animation for food icons
-const float = keyframes`
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  25% { transform: translateY(-20px) rotate(5deg); }
-  50% { transform: translateY(-10px) rotate(-3deg); }
-  75% { transform: translateY(-15px) rotate(2deg); }
+// Modern animations
+const slideUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;
 
-const pulse = keyframes`
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.1); opacity: 1; }
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 `;
 
-const slideInFromLeft = keyframes`
-  0% { transform: translateX(-100%); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
+const floatAnimation = keyframes`
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 `;
 
-const slideInFromRight = keyframes`
-  0% { transform: translateX(100%); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
-`;
-
-// Styled components
-const StyledContainer = styled(Box)(({ theme }) => ({
+// Modern styled components
+const LoginContainer = styled(Box)({
   minHeight: '100vh',
-  background: `linear-gradient(135deg, 
-    ${theme.palette.primary.main} 0%, 
-    ${theme.palette.secondary.main} 50%, 
-    ${theme.palette.warning.main} 100%)`,
+  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  padding: '20px',
   position: 'relative',
-  overflow: 'hidden',
   '&::before': {
     content: '""',
     position: 'absolute',
@@ -73,94 +74,140 @@ const StyledContainer = styled(Box)(({ theme }) => ({
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'rgba(0,0,0,0.1)',
+    background: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
     zIndex: 1
   }
-}));
-
-const FloatingIcon = styled(Box)(({ theme, delay = 0, size = 40 }) => ({
-  position: 'absolute',
-  fontSize: size,
-  color: 'rgba(255,255,255,0.3)',
-  animation: `${float} 6s ease-in-out infinite`,
-  animationDelay: `${delay}s`,
-  zIndex: 2
-}));
+});
 
 const LoginCard = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(4),
-  borderRadius: theme.spacing(3),
-  background: 'rgba(255,255,255,0.95)',
+  padding: '40px',
+  borderRadius: '24px',
+  background: 'rgba(255, 255, 255, 0.95)',
   backdropFilter: 'blur(20px)',
-  border: '1px solid rgba(255,255,255,0.2)',
-  boxShadow: '0 25px 45px rgba(0,0,0,0.1)',
+  boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1)',
   width: '100%',
-  maxWidth: 450,
-  zIndex: 10,
+  maxWidth: '440px',
+  zIndex: 2,
   position: 'relative',
-  animation: `${slideInFromLeft} 0.8s ease-out`
+  animation: `${slideUp} 0.6s ease-out`,
+  border: '1px solid rgba(255, 255, 255, 0.2)'
 }));
 
-const WelcomeSection = styled(Box)(({ theme }) => ({
+const LogoContainer = styled(Box)({
   textAlign: 'center',
-  marginBottom: theme.spacing(3),
-  animation: `${slideInFromRight} 0.8s ease-out 0.2s both`
-}));
+  marginBottom: '32px',
+  animation: `${fadeIn} 0.8s ease-out 0.2s both`
+});
 
-const StyledTextField = styled(TextField)(({ theme }) => ({
-  marginBottom: theme.spacing(2),
-  '& .MuiOutlinedInput-root': {
-    borderRadius: theme.spacing(2),
-    transition: 'all 0.3s ease',
-    '&:hover': {
-      transform: 'translateY(-2px)',
-      boxShadow: '0 5px 15px rgba(0,0,0,0.1)'
-    },
-    '&.Mui-focused': {
-      transform: 'translateY(-2px)',
-      boxShadow: '0 5px 20px rgba(0,0,0,0.15)'
-    }
-  }
-}));
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  borderRadius: theme.spacing(2),
-  padding: theme.spacing(1.5, 0),
-  fontSize: '1.1rem',
-  fontWeight: 'bold',
-  textTransform: 'none',
-  background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    transform: 'translateY(-3px)',
-    boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
-    background: `linear-gradient(45deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.dark})`
-  },
-  '&:active': {
-    transform: 'translateY(-1px)'
-  }
-}));
-
-const LogoSection = styled(Box)(({ theme }) => ({
+const LogoIcon = styled(Box)({
+  width: '80px',
+  height: '80px',
+  background: 'linear-gradient(135deg, #ff6b6b, #ff8e8e)',
+  borderRadius: '20px',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  marginBottom: theme.spacing(2),
-  animation: `${pulse} 2s ease-in-out infinite`
+  margin: '0 auto 16px',
+  animation: `${floatAnimation} 3s ease-in-out infinite`,
+  boxShadow: '0 10px 30px rgba(255, 107, 107, 0.3)'
+});
+
+const WelcomeText = styled(Typography)({
+  fontSize: '28px',
+  fontWeight: '700',
+  color: '#2d3748',
+  marginBottom: '8px',
+  animation: `${slideUp} 0.6s ease-out 0.3s both`
+});
+
+const SubText = styled(Typography)({
+  fontSize: '16px',
+  color: '#718096',
+  marginBottom: '32px',
+  animation: `${slideUp} 0.6s ease-out 0.4s both`
+});
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  marginBottom: '20px',
+  '& .MuiOutlinedInput-root': {
+    borderRadius: '16px',
+    backgroundColor: '#f7fafc',
+    border: 'none',
+    transition: 'all 0.3s ease',
+    '& fieldset': {
+      border: '2px solid transparent'
+    },
+    '&:hover': {
+      backgroundColor: '#edf2f7',
+      transform: 'translateY(-2px)',
+      boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)'
+    },
+    '&.Mui-focused': {
+      backgroundColor: '#ffffff',
+      transform: 'translateY(-2px)',
+      boxShadow: '0 8px 25px rgba(102, 126, 234, 0.15)',
+      '& fieldset': {
+        border: '2px solid #667eea'
+      }
+    }
+  },
+  '& .MuiInputLabel-root': {
+    color: '#4a5568',
+    fontWeight: '500'
+  },
+  '& .MuiInputBase-input': {
+    padding: '16px',
+    fontSize: '16px'
+  }
 }));
+
+const LoginButton = styled(Button)({
+  borderRadius: '16px',
+  padding: '16px 0',
+  fontSize: '16px',
+  fontWeight: '600',
+  textTransform: 'none',
+  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  color: 'white',
+  boxShadow: '0 8px 25px rgba(102, 126, 234, 0.3)',
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    transform: 'translateY(-2px)',
+    boxShadow: '0 12px 35px rgba(102, 126, 234, 0.4)',
+    background: 'linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%)'
+  },
+  '&:active': {
+    transform: 'translateY(0px)'
+  },
+  '&:disabled': {
+    background: '#cbd5e0',
+    color: '#a0aec0'
+  }
+});
+
+const ForgotPasswordLink = styled(Typography)({
+  textAlign: 'center',
+  marginTop: '24px',
+  color: '#667eea',
+  cursor: 'pointer',
+  fontSize: '14px',
+  fontWeight: '500',
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    color: '#5a67d8',
+    textDecoration: 'underline'
+  }
+});
+
+const FormContainer = styled(Box)({
+  animation: `${slideUp} 0.6s ease-out 0.5s both`
+});
 
 function Login({ t, history }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
-  const [showForm, setShowForm] = useState(false);
-
-  // Show form with delay for animation
-  React.useEffect(() => {
-    const timer = setTimeout(() => setShowForm(true), 300);
-    return () => clearTimeout(timer);
-  }, []);
 
   const [login, { loading, error }] = useMutation(LOGIN, {
     onCompleted: (data) => {
@@ -219,123 +266,103 @@ function Login({ t, history }) {
   };
 
   return (
-    <StyledContainer>
-      {/* Floating Food Icons */}
-      <FloatingIcon style={{ top: '10%', left: '15%' }} delay={0} size={60}>
-        <PizzaIcon fontSize="inherit" />
-      </FloatingIcon>
-      <FloatingIcon style={{ top: '20%', right: '20%' }} delay={1} size={45}>
-        <FastfoodIcon fontSize="inherit" />
-      </FloatingIcon>
-      <FloatingIcon style={{ bottom: '25%', left: '10%' }} delay={2} size={50}>
-        <RestaurantIcon fontSize="inherit" />
-      </FloatingIcon>
-      <FloatingIcon style={{ bottom: '15%', right: '15%' }} delay={1.5} size={40}>
-        <PizzaIcon fontSize="inherit" />
-      </FloatingIcon>
-      <FloatingIcon style={{ top: '60%', left: '80%' }} delay={0.5} size={35}>
-        <FastfoodIcon fontSize="inherit" />
-      </FloatingIcon>
+    <LoginContainer>
+      <Container maxWidth="sm">
+        <Fade in timeout={800}>
+          <LoginCard elevation={0}>
+            <LogoContainer>
+              <LogoIcon>
+                <RestaurantMenu sx={{ fontSize: 40, color: 'white' }} />
+              </LogoIcon>
+              <WelcomeText>
+                Welcome Back
+              </WelcomeText>
+              <SubText>
+                Sign in to your account to continue
+              </SubText>
+            </LogoContainer>
 
-      <Fade in timeout={1000}>
-        <LoginCard elevation={24}>
-          <LogoSection>
-            <RestaurantIcon sx={{ fontSize: 48, color: 'primary.main', mr: 1 }} />
-            <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
-              Heart Attack
-            </Typography>
-          </LogoSection>
-
-          <WelcomeSection>
-            <Typography variant="h5" sx={{ fontWeight: '600', color: 'text.primary', mb: 1 }}>
-              {t('WelcomeBack')}
-            </Typography>
-            <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-              {t('SignInToContinue')}
-            </Typography>
-          </WelcomeSection>
-
-          {error && (
-            <Slide direction="down" in={!!error} mountOnEnter unmountOnExit>
-              <Alert severity="error" sx={{ mb: 2, borderRadius: 2 }}>
-                {error.message || t('LoginFailed')}
-              </Alert>
-            </Slide>
-          )}
-
-          <Zoom in={showForm} timeout={600}>
-            <Box component="form" onSubmit={handleSubmit}>
-              <StyledTextField
-                fullWidth
-                variant="outlined"
-                label={t('Email')}
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                error={!!errors.email}
-                helperText={errors.email}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <EmailIcon color="primary" />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-
-              <StyledTextField
-                fullWidth
-                variant="outlined"
-                label={t('Password')}
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                error={!!errors.password}
-                helperText={errors.password}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <LockIcon color="primary" />
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton onClick={handleTogglePassword} edge="end">
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-
-              <StyledButton
-                type="submit"
-                fullWidth
-                variant="contained"
-                disabled={loading}
-                sx={{ mt: 2, mb: 2 }}
-              >
-                {loading ? t('SigningIn') : t('SignIn')}
-              </StyledButton>
-
-              <Box textAlign="center">
-                <Typography 
-                  variant="body2" 
+            {error && (
+              <Fade in={!!error}>
+                <Alert 
+                  severity="error" 
                   sx={{ 
-                    color: 'primary.main', 
-                    cursor: 'pointer',
-                    '&:hover': { textDecoration: 'underline' }
+                    mb: 3, 
+                    borderRadius: '12px',
+                    backgroundColor: '#fed7d7',
+                    border: '1px solid #feb2b2',
+                    color: '#c53030'
                   }}
-                  onClick={() => history.push('/auth/reset')}
                 >
-                  {t('ForgotPassword')}
-                </Typography>
+                  {error.message || t('LoginFailed')}
+                </Alert>
+              </Fade>
+            )}
+
+            <FormContainer>
+              <Box component="form" onSubmit={handleSubmit}>
+                <StyledTextField
+                  fullWidth
+                  variant="outlined"
+                  label="Email Address"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  error={!!errors.email}
+                  helperText={errors.email}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmailIcon sx={{ color: '#a0aec0' }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+
+                <StyledTextField
+                  fullWidth
+                  variant="outlined"
+                  label="Password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  error={!!errors.password}
+                  helperText={errors.password}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon sx={{ color: '#a0aec0' }} />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={handleTogglePassword} edge="end">
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+
+                <LoginButton
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  disabled={loading}
+                  sx={{ mt: 1 }}
+                >
+                  {loading ? 'Signing In...' : 'Sign In'}
+                </LoginButton>
+
+                <ForgotPasswordLink onClick={() => history.push('/auth/reset')}>
+                  Forgot your password?
+                </ForgotPasswordLink>
               </Box>
-            </Box>
-          </Zoom>
-        </LoginCard>
-      </Fade>
-    </StyledContainer>
+            </FormContainer>
+          </LoginCard>
+        </Fade>
+      </Container>
+    </LoginContainer>
   );
 }
 
