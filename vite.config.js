@@ -121,10 +121,6 @@ export default defineConfig(async ({ mode }) => {
       },
     },
 
-    // Define global constants
-    define: {
-      global: "globalThis",
-      "process.env": {},
-    },
+    // Remove the conflicting define section that was causing Apollo Client build issues
   };
 });
